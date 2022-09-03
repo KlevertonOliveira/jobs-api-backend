@@ -12,15 +12,18 @@ const mongoose = require('mongoose');
 const errorHandler = require('./middleware/error-handler');
 const notFound = require('./middleware/not-found');
 
-// routes imports
+// routers
 const authRouter = require('./routes/auth');
+const jobsRouter = require('./routes/jobs');
+
+const authentication = require('./middleware/authentication');
 
 // middleware
 app.use(express.json());
 
 // routes
 app.use('/api/v1/auth', authRouter);
-/* app.use('/api/v1/jobs', jobsRouter); */
+app.use('/api/v1/jobs', authentication, jobsRouter);
 
 app.use(errorHandler);
 app.use(notFound);
